@@ -2,11 +2,27 @@
     font-family:dot;
     src: url("/fonts/dot.ttf") format("truetype");
 }
-.logo {
-    font-family:dot;
-    text-shadow:1px 2px 2px #808080;
+.top {
+    background-color: #17a2b8;
 }
 
-body {
-    background-color: #17a2b8
+h1 a {
+    display: block;
+    width: 150px;
+    height: 50px;
+    font-size: 0;
+    background: url(/img/navbar_logo.png) left top/150px auto no-repeat;
 }
+
+.logo-img img{
+    margin-bottom: 30px;
+    padding-left: 0px;
+}
+body {
+    background-color: #fffaf0;
+}
+
+.card {
+    background-color: #fffaf0;
+}
+

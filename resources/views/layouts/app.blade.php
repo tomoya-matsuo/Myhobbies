@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
     
-        <div class="text-white">
+        <div class="text-dark">
             <body>
         
                 {{-- ナビゲーションバー --}}

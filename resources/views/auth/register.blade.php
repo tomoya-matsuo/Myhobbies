@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
- <div class="signup">
     <div class="text-center">
-        <h1>新規登録</h1>
+        <h3>新規登録</h3>
     </div>
+    
+    <div class="logo-img text-center">
+        <img src="/img/logo.png">
+    </div>    
     
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
@@ -34,5 +37,5 @@
             {!! Form::close() !!}
         </div>
     </div>
-  </div>    
+   
 @endsection    
