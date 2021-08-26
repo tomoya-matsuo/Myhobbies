@@ -2,7 +2,10 @@
 
 @section('content')
     @if (Auth::check())
-        ようこそ、{{ Auth::user()->name }}さん。
+    <div class="col-8">
+        {{--投稿一覧--}}
+        @include('hobbies.hobbies')
+    </div>
     @else    
     <div class="container">
         <div class="text-center pr-1 pt-5">

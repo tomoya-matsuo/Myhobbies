@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function hobbies()
+    {
+        return $this->hasMany(Hobby::class);
+    }
+    
+    //このユーザに関係するモデルの件数をロード
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('hobbies');
+    }
 }

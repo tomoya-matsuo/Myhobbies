@@ -14,16 +14,21 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                {{-- ユーザ詳細タブ --}}
-                <li class="nav-item"><a href="#" class="nav-link text-dark">投稿一覧</a></li>
+                {{-- 投稿一覧タブ --}}
+                <li class="nav-item">
+                    <a href="{{ route('users.show', ['user' => $user->id]) }}" class="nav-link text-dark{{ Request::routeIs('users.show') ? 'active' : '' }}">
+                    投稿一覧
+                     <span class="badge badge-secondary">{{ $user->hobbies_count }}</span>
+                    </a> 
+                     
                 {{-- フォロー一覧タブ --}}
                 <li class="nav-item"><a href="#" class="nav-link text-dark">フォロー</a></li>
                 {{-- フォロワー一覧タブ --}}
                 <li class="nav-item"><a href="#" class="nav-link text-dark">フォロワー</a></li>
                 {{--お気に入りタブ--}}
                 <li class="nav-item"><a href="#" class="nav-link text-dark">お気に入り</a></li>
-                
             </ul>
+
         </div>
     </div>
 @endsection
