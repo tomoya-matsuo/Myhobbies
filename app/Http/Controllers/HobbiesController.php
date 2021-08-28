@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Hobby;
+
 class HobbiesController extends Controller
 {
+    public function create()
+    {
+        return view('hobbies.form');
+    }
+    
     public function index()
     {
         $data = [];
@@ -23,6 +30,11 @@ class HobbiesController extends Controller
         //welcomeビューでそれらを表示
         return view('welcome',$data);
     }
+
+    
+    public function show() {
+        return view('hobbies.form');
+    }
     
     public function store(Request $request)
     {
@@ -37,13 +49,13 @@ class HobbiesController extends Controller
         $request->user()->hobbies()->create([
             'title' => $request->title,
             'content' => $request->content,
-            'image' => $request->image
+            'image' => $request->image,
             ]);
             
             //前のURLへリダイレクト
-            return back();
+            return redirect('/')->with('message','投稿しました。');
     }
-    
+
     public function destroy($id)
     {
         //idの値で投稿を検索して取得
@@ -57,4 +69,5 @@ class HobbiesController extends Controller
         //前のURLへリダイレクトさせる
         return back();
     }
+
 }

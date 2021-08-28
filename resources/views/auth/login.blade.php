@@ -4,6 +4,13 @@
     <div class="text-center">
         <h3>ログイン</h3>
     </div>
+    @if (count($errors) > 0)
+    <ul class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            <li class="ml-2">{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif
     
     <div class="logo-img text-center">
         <img src="/img/logo.png">

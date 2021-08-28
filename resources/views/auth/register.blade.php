@@ -4,6 +4,13 @@
     <div class="text-center">
         <h3>新規登録</h3>
     </div>
+    @if (count($errors) > 0)
+    <ul class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            <li class="ml-2">{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif
     
     <div class="logo-img text-center">
         <img src="/img/logo.png">
@@ -14,7 +21,7 @@
             
             {!! Form::open(['route' => 'signup.post']) !!}
                 <div class="form-group">
-                    {!! Form::label('name','氏名') !!}
+                    {!! Form::label('name','ニックネーム') !!}
                     {!! Form::text('name',null,['class' => 'form-control']) !!}
                 </div>
 
