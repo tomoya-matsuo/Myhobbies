@@ -10,7 +10,8 @@ class Hobby extends Model
         'title',
         'content',
         'user_id',
-        'image'];
+        'image',
+        ];
         
     public function user()
     {

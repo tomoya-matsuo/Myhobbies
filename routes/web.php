@@ -27,7 +27,9 @@ Route::get('logout','Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
-    Route::resource('hobbies','HobbiesController',['only' => ['store','destroy','show']]);
+    Route::resource('hobbies','HobbiesController',['only' => ['store','destroy','show','update']]);
     Route::resource('/post','HobbiesController');
+    Route::get('/post/{id}/edit','HobbiesController@edit')->name('hobbies.edit');
+    Route::put('/post/{id}','HobbiesController@update')->name('hobbies.update');
 });
 

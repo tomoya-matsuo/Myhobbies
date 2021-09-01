@@ -44,17 +44,68 @@ class HobbiesController extends Controller
             'content' => 'required|max:255',
             'image' => 'image|max:10240'
             ]);
-        
+            
+        if (request('image')){
+            $original = request()->file('image')->getClientOriginalName();
+            $name = date('Ymd_His').'_'.$original;
+            request()->file('image')->move('storage/images', $name);
+            $request->image = $name;
+            }   
+    
         //認証済みユーザ(閲覧者)の投稿として作成
         $request->user()->hobbies()->create([
             'title' => $request->title,
             'content' => $request->content,
             'image' => $request->image,
             ]);
+        
+ 
             
             //前のURLへリダイレクト
-            return redirect('/')->with('message','投稿しました。');
+            return redirect('/')->with('message','投稿しました');
     }
+
+    
+    public function edit($id)
+    {
+        $hobby = \App\Hobby::findOrFail($id);
+        
+        if(\Auth::id() === $hobby->user_id);
+        return view('hobbies.edit',compact('hobby'));
+    }
+    
+     public function update(Request $request, $id)
+    {
+        //idの値で投稿を取得
+        $hobby = \App\Hobby::findOrFail($id);
+        
+        // バリデーション
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+            'image' => 'image|max:10240'
+            ]);
+            
+        if (request('image')){
+            $original = request()->file('image')->getClientOriginalName();
+            $name = date('Ymd_His').'_'.$original;
+            request()->file('image')->move('storage/images', $name);
+            $request->image = $name;
+            }     
+    
+            //更新
+            $hobby->title = $request->title;
+            $hobby->content = $request->content;
+            $hobby->image = $request->image;
+            $hobby->save();
+        
+ 
+            
+            //前のURLへリダイレクト
+            return redirect('/')->with('message','投稿を編集しました');
+    }
+        
+
 
     public function destroy($id)
     {

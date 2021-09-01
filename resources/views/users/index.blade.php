@@ -21,7 +21,7 @@
                                 <p>{!! link_to_route('users.show', 'プロフィール', ['user' => $user->id]) !!}</p>
                                 </div>
                             </div>
-                        </div>    
+                        <div></div>    
                     </div>
                 @endforeach
             </div>
