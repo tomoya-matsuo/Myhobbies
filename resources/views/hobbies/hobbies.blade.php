@@ -22,10 +22,11 @@
                         <div class="text-muted small ml-3">
                             <div>投稿日</div>
                             <div><strong>{{ $hobby->created_at->diffForHumans() }}</strong></div>
-                            
+                            @if (Auth::id() == $hobby->user_id)
                             <span class="ml-auto">
                                 <a href="{{route('hobbies.edit', $hobby)}}"><button class="btn btn-primary">編集</button></a>
                             </span>
+                            @endif
                             
                         </div>
                     </div>
