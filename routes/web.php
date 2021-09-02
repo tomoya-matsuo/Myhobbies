@@ -35,8 +35,9 @@ Route::group(['middleware' => ['auth']], function () {
     
         Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
         Route::resource('hobbies','HobbiesController',['only' => ['store','destroy','show','update']]);
-        Route::resource('/post','HobbiesController');
+        Route::get('/post/create','HobbiesController@create')->name('hobbies.create');
+        Route::get('/post/{id}','HobbiesController@show')->name('hobbies.show');
         Route::get('/post/{id}/edit','HobbiesController@edit')->name('hobbies.edit');
         Route::put('/post/{id}','HobbiesController@update')->name('hobbies.update');
+        Route::get('/mypost','HobbiesController@mypost')->name('hobbies.mypost');
 });
-

@@ -20,11 +20,10 @@
             
 
                 
-            {{ Form::open(['route' => ('hobbies.update',$hobby->id),'files' => true 'method' => 'put']) }}
+            {{ Form::open(['route' => 'hobbies.store','files' => true]) }}
                     @csrf
 
                 <div class="form-group">
-                    {{ Form::label('title','趣味名') }}
                     {{ Form::text('title','',['class' => 'form-control','id' =>"title",'placeholder'=>'趣味名']) }}
                 </div>
 

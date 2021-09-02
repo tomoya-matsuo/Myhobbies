@@ -10,7 +10,9 @@
             {{-- タブ --}}
             @include('users.navtabs')
             {{-- ユーザ一覧 --}}
-            @include('users.users')
+            <div class="card-header p-3 w-100 d-flex text-dark">
+                @include('users.users')
+            </div>    
         </div>
     </div>
 @endsection

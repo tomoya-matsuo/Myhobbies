@@ -21,7 +21,7 @@
                         <a href="#" class="nav-link dropdown-toggle text-light" data-toggle="dropdown">{{ Auth::user()->name }} さん</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             {{--投稿ページへのリンク--}}
-                            <li class="dropdown-item">{!! link_to_route('hobbies.show', '投稿', ['hobby' => Auth::id()]) !!}</li>
+                            <li class="dropdown-item">{!! link_to_route('hobbies.create', '投稿', ['hobby' => Auth::id()]) !!}</li>
                             {{--ユーザ詳細ページへのリンク--}}
                            <li class="dropdown-item">{!! link_to_route('users.show', 'プロフィール', ['user' => Auth::id()]) !!}</li>
                             <li class="dropdown-divider"></li>

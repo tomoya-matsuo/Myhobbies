@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs nav-justified mb-3">
     {{-- ユーザ詳細タブ --}}
     <li class="nav-item">
-        <a href="{{ route('users.show', ['user' => $user->id]) }}" class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }}">
+        <a href="{{ route('hobbies.mypost', ['user' => $user->id]) }}" class="nav-link {{ Request::routeIs('users.mypost') ? 'active' : '' }}">
             投稿一覧
             <span class="badge badge-secondary">{{ $user->hobbies_count }}</span>
         </a>

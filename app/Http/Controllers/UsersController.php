@@ -21,6 +21,8 @@ class UsersController extends Controller
             ]);
     }
     
+        
+    
     public function show($id)
     {
         //idの値でユーザを検索して取得
@@ -38,6 +40,7 @@ class UsersController extends Controller
             'hobbies' => $hobbies,
             ]);
     }
+
     
     public function followings($id){
         //idの値でユーザを検索して取得

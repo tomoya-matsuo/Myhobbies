@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Hobby;
 
+use App\User;
+
 class HobbiesController extends Controller
 {
     public function create()
     {
-        return view('hobbies.form');
+        return view('hobbies.create');
     }
     
     public function index()
@@ -19,7 +21,7 @@ class HobbiesController extends Controller
         if(\Auth::check()) { //認証済みの場合
         // 認証済みユーザの取得
         $user = \Auth::user();
-        $hobbies = $user->hobbies()->orderBy('created_at','desc')->paginate(10);
+        $hobbies = $user->feed_hobbies()->orderBy('created_at','desc')->paginate(10);
         
         $data = [
             'user' => $user,
@@ -32,8 +34,9 @@ class HobbiesController extends Controller
     }
 
     
-    public function show() {
-        return view('hobbies.form');
+    public function show($id) {
+        $hobby = \App\Hobby::findOrFail($id);
+        return view('hobbies.show',compact('hobby'));
     }
     
     public function store(Request $request)
@@ -118,7 +121,24 @@ class HobbiesController extends Controller
         }
         
         //前のURLへリダイレクトさせる
-        return back();
+        return redirect('/')->with('message','投稿を削除しました');
+    }
+    
+    public function mypost() {
+         // idの値でユーザを検索して取得
+        $user =\Auth::user();
+
+        // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
+
+        // ユーザの投稿一覧を作成日時の降順で取得
+        $hobbies = $user->hobbies()->orderBy('created_at', 'desc')->paginate(10);
+
+        // ユーザ詳細ビューでそれらを表示
+        return view('users.mypost', [
+            'user' => $user,
+            'hobbies' => $hobbies,
+        ]);
     }
 
 }
