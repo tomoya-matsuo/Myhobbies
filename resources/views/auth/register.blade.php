@@ -19,11 +19,16 @@
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
             
-            {!! Form::open(['route' => 'signup.post']) !!}
+            {!! Form::open(['route' => 'signup.post','files' => true]) !!}
                 <div class="form-group">
                     {!! Form::label('name','ニックネーム') !!}
                     {!! Form::text('name',null,['class' => 'form-control']) !!}
                 </div>
+                
+                <div class="form-group">
+                    {!! Form::label('profile_image','プロフィール画像(任意)') !!}
+                    {!! Form::file('profile_image',['id' => 'profile_image']) !!}
+                </div>                
 
                 <div class="form-group">
                     {!! Form::label('email','メールアドレス') !!}

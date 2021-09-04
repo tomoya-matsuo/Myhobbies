@@ -13,7 +13,7 @@
             
             @if (count($hobbies) ==0)
             <p class ="text-center">
-                <b>投稿はまだありません。</b>
+                <b>お気に入りはまだありません。</b>
             </p>
             @endif
             
@@ -24,7 +24,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <div class="media flex-wrap w-100 align-items-center">
-                                    <img src="{{asset('storage/profile_image/'.($hobby->user->profile_image??'user_default.jpg'))}}"
+                                    <img src="{{asset('storage/profile_image/'.($user->profile_image??'user_default.jpg'))}}"
                                     class="rounded-circle" style="width:40px;height:40px;">
                                     
                                     <div class="media-body ml-3">趣味名: <b><a href = "{{ route('hobbies.show',$hobby) }}">{{ $hobby->title }}</a></b>
@@ -52,7 +52,6 @@
                             <div class ="text-right">
                             @include('favorites.favorite_button') 
                             </div>
-                            
                         </div>
                     </div>
                 </div>

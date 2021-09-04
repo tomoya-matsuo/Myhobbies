@@ -31,13 +31,20 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('unfollow','UserFollowController@destroy')->name('user.unfollow');
         Route::get('followings','UsersController@followings')->name('users.followings');
         Route::get('followers','UsersController@followers')->name('users.followers');
+        Route::get('favorites','UsersController@favorites')->name('users.favorites');
     });
     
         Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
-        Route::resource('hobbies','HobbiesController',['only' => ['store','destroy','show','update']]);
+        
+        Route::group(['prefix' => 'hobbies/{id}'], function () {
+        Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
+    });
+    
+        Route::post('/post','HobbiesController@store')->name('hobbies.store');
         Route::get('/post/create','HobbiesController@create')->name('hobbies.create');
-        Route::get('/post/{id}','HobbiesController@show')->name('hobbies.show');
-        Route::get('/post/{id}/edit','HobbiesController@edit')->name('hobbies.edit');
-        Route::put('/post/{id}','HobbiesController@update')->name('hobbies.update');
-        Route::get('/mypost','HobbiesController@mypost')->name('hobbies.mypost');
+        Route::get('/post/{hobby}','HobbiesController@show')->name('hobbies.show');
+        Route::get('/post/{hobby}/edit','HobbiesController@edit')->name('hobbies.edit');
+        Route::put('/post/{hobby}','HobbiesController@update')->name('hobbies.update');
+        Route::delete('/post/{hobby}','HobbiesController@destroy')->name('hobbies.destroy');
 });

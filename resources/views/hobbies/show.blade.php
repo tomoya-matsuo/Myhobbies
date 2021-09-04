@@ -3,6 +3,9 @@
 
 <div class="card mb-4">
     <div class="card-header">
+        
+        <img src="{{asset('storage/profile_image/'.($hobby->user->profile_image??'user_default.jpg'))}}"
+        class="rounded-circle" style="width:40px;height:40px;">
         <div class="text-muted small mr-3"> 
             {{$hobby->user->name}}
         </div>

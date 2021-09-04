@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'profile_image','email', 'password',
     ];
 
     /**
@@ -45,7 +45,7 @@ class User extends Authenticatable
     //このユーザに関係するモデルの件数をロード
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['hobbies','followings','followers']);
+        $this->loadCount(['hobbies','followings','followers','favorites']);
     }
     
     //このユーザがフォロー中のユーザ
@@ -59,6 +59,49 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class,'user_follow','follow_id','user_id')->withTimestamps();
     }
+    
+    //　投稿をお気に入りするユーザ
+    public function favorites()
+    {
+        return $this->belongsToMany(Hobby::class,'favorites','user_id','hobby_id')->withTimestamps();
+    }
+    
+     public function favorite($hobbyId)
+    {
+        // すでにお気に入りしているかの確認
+        $exist = $this->is_favoriting($hobbyId);
+        
+        if ($exist) {
+            // すでにお気に入りしていれば何もしない
+             return false;
+        } else {
+            // お気に入りしていなければお気に入りする
+            $this->favorites()->attach($hobbyId);
+            return true;
+        }
+    }
+    
+    public function unfavorite($hobbyId)
+     {
+         // すでにお気に入りしているかの確認
+         $exist = $this->is_favoriting($hobbyId);
+         
+         if ($exist) {
+             // すでにお気に入りしていればお気に入りを外す
+             $this->favorites()->detach($hobbyId);
+             return true;
+         } else {
+             // お気に入りしていなければ何もしない
+             return false;
+         }
+     }
+     
+      public function is_favoriting($hobbyId)
+     {
+         // お気に入り中の投稿の中に$hobbyIdのものが存在するか
+         return $this->favorites()->where('hobby_id',$hobbyId)->exists();
+     }
+    
 
    public function follow($userId)
     {

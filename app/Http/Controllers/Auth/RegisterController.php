@@ -51,6 +51,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'profile_image' => ['image','max:10240'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -62,12 +63,30 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
     protected function create(array $data)
     {
-        return User::create([
+        $profile_image=request()->file('profile_image');
+        if($profile_image){
+        $profile_image=request()->file('profile_image')->getClientOriginalName();
+        request()->file('profile_image')->storeAs('public/profile_image', $profile_image);        
+        
+        
+        $user = User::create([
             'name' => $data['name'],
+            'profile_image' => $profile_image,            
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        return $user;            
+        }else{
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);  
+        return $user;
+        }
     }
+
 }

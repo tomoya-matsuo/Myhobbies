@@ -10,6 +10,12 @@
             {{-- タブ --}}
             @include('users.navtabs')
             {{-- ユーザ一覧 --}}
+            
+            @if (count($users) ==0)
+            <p class ="text-center">
+                <b>まだ誰もフォローしていません。</b>
+            </p>      
+            @endif            
             <div class="card-header p-3 w-100 d-flex text-dark">
             @include('users.users')
             </div>
