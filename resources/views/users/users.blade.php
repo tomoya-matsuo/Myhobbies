@@ -4,7 +4,8 @@
         <div class="container-fluid mt-20" style="margin-left:-10px;">
             <div class="row">
                 <li class="media">
-                    <img src="{{ $user->profile_image }}" class="rounded-circle" width="100" height="100">
+                    <img src="{{asset('storage/profile_image/'.($hobby->user->profile_image)??'user_default.jpg')}}"
+                    class="rounded-circle" style="width:40px;height:40px;">
                     <div class="media-body">
                         <div>
                             {{ $user->name }}

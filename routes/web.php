@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'hobbies/{id}'], function () {
         Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
         Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
+        
     });
     
         Route::post('/post','HobbiesController@store')->name('hobbies.store');
@@ -47,4 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/post/{hobby}/edit','HobbiesController@edit')->name('hobbies.edit');
         Route::put('/post/{hobby}','HobbiesController@update')->name('hobbies.update');
         Route::delete('/post/{hobby}','HobbiesController@destroy')->name('hobbies.destroy');
+        
+        //ユーザ編集画面
+        Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
+        //ユーザ更新画面
+        Route::put('/users/update', 'UsersController@update')->name('users.update');       
 });

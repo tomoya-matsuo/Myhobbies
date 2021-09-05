@@ -8,8 +8,18 @@ use App\User;
 
 use App\Hobby;
 
+use Auth;
+
+use Validator;
+
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        // ログインしていなかったらログインページに遷移する（この処理を消すとログインしなくてもページを表示する）
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //ユーザ一覧をidの降順で取得
@@ -84,11 +94,51 @@ class UsersController extends Controller
          
          $user->loadRelationshipCounts();
          
-         $hobbies = $user->favorites()->paginate(10);
+         $hobbies = $user->favorites()->orderBy('created_at','desc')->paginate(10);
          
          return view('users.favorites',[
              'user' => $user,
              'hobbies' => $hobbies,
              ]);
      }
+     
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user);           
+        if($user = User::findOrFail($user->id)) {
+         // テンプレート「user/edit.blade.php」を表示します。
+        return view('users.edit', ['user' => $user]);
+        }
+    }
+    
+    public function update(Request $request)
+    {
+        
+        $validator = Validator::make($request->all() , [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8|confirmed',
+            ]);
+
+        //バリデーションの結果がエラーの場合
+        if ($validator->fails())
+        {
+          return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+        
+        $user = \Auth::user();
+        $user->name = $request->name;
+        
+        $profile_image=request()->file('profile_image');
+        if($profile_image){
+        $profile_image=request()->file('profile_image')->getClientOriginalName();
+        request()->file('profile_image')->storeAs('public/profile_image', $profile_image);  
+        $user->profile_image = $profile_image;
+        }
+        
+        $user->password = bcrypt($request->user_password);
+        $user->save();
+
+        return redirect('/'.$request->id);
+    }     
+    
 }

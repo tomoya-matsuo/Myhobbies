@@ -35,6 +35,10 @@
         <span class="mr-2 mt-2 float-right">
             投稿日時 {{$hobby->created_at->diffForHumans()}}
         </span>
+        {{--お気に入り/お気にいり解除ボタン--}}
+        <div class ="text-left">
+        @include('favorites.favorite_button')
+        </div>              
     </div>
 </div>
 

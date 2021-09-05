@@ -8,7 +8,9 @@
                     <div class="card bg-dark">
                         <div class="index">    
                             <div class="card-header p-3 w-100 d-flex text-dark">
-                                <img src="{{ $user->profile_image }}" class="rounded-circle" width="50" height="50">
+                                <img src="{{asset('storage/profile_image/'.$user->profile_image)}}"
+                                class="rounded-circle" style="width:40px;height:40px;">
+                                
                                 <div class="ml-2 mr-2 d-flex flex-column">
                                    <div>
                                        {{ $user->name }}
@@ -29,5 +31,6 @@
         <div class="my-4 d-flex justify-content-center">
             {{ $users->links() }}
         </div>
+        
     </div>
 @endsection
